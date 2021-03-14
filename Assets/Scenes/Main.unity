@@ -2268,3 +2268,5 @@ MonoBehaviour:
   opt1Text: {fileID: 1057083489}
   opt2Text: {fileID: 351427818}
   Question: {fileID: 1656830665}
+  highScoreText: {fileID: 670815398}
+  timeText: {fileID: 813967173}

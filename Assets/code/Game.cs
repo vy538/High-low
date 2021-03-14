@@ -16,8 +16,11 @@ public class Game : MonoBehaviour
     public Text opt1Text;
     public Text opt2Text;
     public Text Question;
+    public Text highScoreText;
+    public Text timeText;
 
     Animator CardAni;
+    int highScore = 0;
     int numberQuestion = 0;
     string randomKey1, randomKey2;
     string outComeStrin1, outComeStrin2;
@@ -28,7 +31,8 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CardAni = Card.GetComponent<Animator>();   
+        CardAni = Card.GetComponent<Animator>();
+        highScore = PlayerPrefs.GetInt("Score");
     }
 
     // Update is called once per frame
@@ -70,6 +74,8 @@ public class Game : MonoBehaviour
         Question.text = "Q" + numberQuestion + ": Which is higher?";
         opt1Text.text = "➡️"+randomKey1;
         opt2Text.text = "➡️" + randomKey2;
+        highScoreText.text = "@Highest_Score_" + highScore;
+        timeText.text = System.DateTime.Now.ToString("HH:mm tt · MMM dd,yyyy");
 
         if (entries[randomKey1] > entries[randomKey2])
         {
@@ -112,6 +118,7 @@ public class Game : MonoBehaviour
         }
         opt1Text.text = outComeStrin1;
         opt2Text.text = outComeStrin2;
+        PlayerPrefs.SetInt("Score", highScore);
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);
     }
@@ -132,6 +139,8 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Card.GetComponent<Animator>().SetTrigger("hide");
         yield return new WaitForSeconds(0.5f);
+        if (numberQuestion > highScore)
+            highScore = numberQuestion;
         Card.SetActive(false);
         hasQuestion = false;
     }
