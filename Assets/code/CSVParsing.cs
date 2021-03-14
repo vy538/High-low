@@ -7,13 +7,14 @@ using System.IO;
 public class CSVParsing : MonoBehaviour
 {
     public TextAsset csvFile; // Reference of CSV file
-    //public Text contentArea; // Reference of contentArea where records are displayed
-    public Dictionary<string, float> entries = new Dictionary<string, float>();
+
+    public Dictionary<string, float> entries;
     private char lineSeperater = '\n'; // It defines line seperate character
     private char fieldSeperator = ','; // It defines field seperate chracter
 
     void Start()
     {
+        entries = GetComponent<Game>().entries;
         readData();
     }
     // Read data from CSV file
@@ -28,6 +29,7 @@ public class CSVParsing : MonoBehaviour
             entries.Add(fields[0], float.Parse(fields[1]));
             last = fields[0];
         }
+        GetComponent<Game>().readTheData = true;
         //contentArea.text = last + " => " + entries[last];
     }
 
